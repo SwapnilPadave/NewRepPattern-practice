@@ -18,6 +18,35 @@ namespace NewRepoREPOSITORY.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("NewRepoMODEL.Models.Student", b =>
+                {
+                    b.Property<int>("RollNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RollNo");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Students");
+                });
+
             modelBuilder.Entity("NewRepoMODEL.Models.Subject", b =>
                 {
                     b.Property<int>("SubjectId")
@@ -57,6 +86,17 @@ namespace NewRepoREPOSITORY.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("NewRepoMODEL.Models.Student", b =>
+                {
+                    b.HasOne("NewRepoMODEL.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("NewRepoMODEL.Models.Teacher", b =>

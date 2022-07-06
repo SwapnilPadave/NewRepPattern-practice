@@ -33,10 +33,12 @@ namespace NewRepoApi
         {
 
             services.AddControllers();
-            services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();            
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ITeacherReposiory, TeacherRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IStudentService, StudentService>();
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("conn")));
             services.AddSwaggerGen(c =>
             {

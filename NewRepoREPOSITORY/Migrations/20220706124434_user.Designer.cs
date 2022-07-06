@@ -9,7 +9,7 @@ using NewRepoREPOSITORY;
 namespace NewRepoREPOSITORY.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220706114156_user")]
+    [Migration("20220706124434_user")]
     partial class user
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,35 @@ namespace NewRepoREPOSITORY.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("NewRepoMODEL.Models.Student", b =>
+                {
+                    b.Property<int>("RollNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RollNo");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Students");
+                });
 
             modelBuilder.Entity("NewRepoMODEL.Models.Subject", b =>
                 {
@@ -59,6 +88,17 @@ namespace NewRepoREPOSITORY.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("NewRepoMODEL.Models.Student", b =>
+                {
+                    b.HasOne("NewRepoMODEL.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("NewRepoMODEL.Models.Teacher", b =>
