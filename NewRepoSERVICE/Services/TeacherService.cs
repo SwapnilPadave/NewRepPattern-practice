@@ -63,6 +63,7 @@ namespace NewRepoSERVICE.Services
                 Teacher _teacher = await _teacherReposiory.GetById(updateDTO.TeacherId);
                 if (_teacher != null)
                 {
+                    _teacher.TeacherId = updateDTO.TeacherId;
                     _teacher.TeacherName = updateDTO.TeacherName;
                     _teacher.Gender = updateDTO.Gender;
                     _teacher.SubjectId = updateDTO.SubjectId;

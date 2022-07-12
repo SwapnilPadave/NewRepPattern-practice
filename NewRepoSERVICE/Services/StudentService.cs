@@ -61,25 +61,20 @@ namespace NewRepoSERVICE.Services
         public async Task<Student> UpdateStudent(StudentUpdateDTO updateDTO)
         {
             try
-            {
-                var student = new Student();
-                student.RollNo = updateDTO.RollNo;
-                student.FirstName = updateDTO.FirstName;
-                student.LastName = updateDTO.LastName;
-                student.Gender = updateDTO.Gender;
-                student.Email = updateDTO.Email;
-                student.TeacherId = updateDTO.TeacherId;
-                Student _student = await GetStudentById(student.RollNo);
+            {                
+                               
+                Student _student = await GetStudentById(updateDTO.RollNo);
                 if (_student != null)
                 {
-                    _student.FirstName = student.FirstName;
-                    _student.LastName = student.LastName;
-                    _student.Gender = student.Gender;
-                    _student.Email = student.Email;
-                    _student.TeacherId = student.TeacherId;
+                    _student.RollNo = updateDTO.RollNo;
+                    _student.FirstName = updateDTO.LastName;
+                    _student.Gender = updateDTO.Gender;
+                    _student.Gender = updateDTO.Gender;
+                    _student.Email = updateDTO.Email;
+                    _student.TeacherId = updateDTO.TeacherId;
                     await _studentRepository.Update(_student);
                 }
-                return student;
+                return _student;
             }
             catch (Exception ex)
             {

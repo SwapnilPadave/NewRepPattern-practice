@@ -58,19 +58,17 @@ namespace NewRepoSERVICE.Services
         public async Task<Subject> UpdateSubject(SubjectUpdateDTO updateDTO)
         {
             try
-            {
-                var subject = new Subject();
-                subject.SubjectId = updateDTO.SubjectId;
-                subject.SubjectName = updateDTO.SubjectName;
-                subject.SubjectLanguage = updateDTO.SubjectLanguage;
-                Subject _subject = await GetSubjectById(subject.SubjectId);
+            {              
+               
+                Subject _subject = await GetSubjectById(updateDTO.SubjectId);
                 if (_subject != null)
                 {
-                    _subject.SubjectName = subject.SubjectName;
-                    _subject.SubjectLanguage = subject.SubjectLanguage;
+                    _subject.SubjectId = updateDTO.SubjectId;
+                    _subject.SubjectName = updateDTO.SubjectName;
+                    _subject.SubjectLanguage = updateDTO.SubjectLanguage;
                     await _subjectRepository.Update(_subject);
                 }
-                return subject;
+                return _subject;
             }
             catch(Exception ex)
             {
